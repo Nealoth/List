@@ -1,24 +1,72 @@
 #pragma once
 
-#include <cstdint>
+#include <cstddef>
 
 namespace custom_std
 {
-
+    
+template<typename T>
 class List {
 public:
 
-    List();
-    ~List();
+    List() : first(nullptr), last(nullptr), length(0)
+    {
+        
+    }
+    
+    ~List()
+    {
+        while (first)
+        {
+            Node * temp = first->Next;
+            delete first;
+            first = temp;
+        }
+    }
 
-    void push_back(int value);
-    int at(std::size_t index);
-    std::size_t size(void);
+    void push_back(T value)
+    {
+        Node * created = new Node;
+        created->value = value;
+        created->Next = nullptr;
+        (length == 0) ? first = created : last->Next = created;
+        last = created;
+        length++;
+    }
+    
+    T at(std::size_t index)
+    {
+        Node * step = first;
+        if (index >= length)
+        {
+            throw std::bad_alloc();
+        }
+        
+        T result = T();
+        for (int i = 0; i <= index; ++i)
+        {
+            if (i == index)
+            {
+                result = step->value;
+                break;
+            }
+            else
+            {
+                step = step->Next;
+            }
+        }
+        return result;
+    }
+    
+    std::size_t size(void)
+    {
+        return length;
+    }
 
 private:
     struct Node
     {
-        int value;
+        T value;
         Node * Next;
     };
 
