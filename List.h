@@ -34,7 +34,7 @@ public:
         length++;
     }
     
-    T at(std::size_t index)
+    T at(std::size_t index) const
     {
         Node * step = first;
         if (index >= length)
@@ -58,7 +58,7 @@ public:
         return result;
     }
     
-    std::size_t size(void)
+    std::size_t size(void) const
     {
         return length;
     }
