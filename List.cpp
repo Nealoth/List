@@ -1,46 +1,60 @@
 #include "List.h"
+
 #include <iostream>
 
-List::List() {
-    length = 0;
-    first  = nullptr;
-}
+namespace custom_std
+{
 
-List::~List() {
-    while (first) {
-        element *temp = first->Next;
+List::List() : length(0), first(nullptr) {}
+
+List::~List()
+{
+    while (first)
+    {
+        Node *temp = first->Next;
         delete first;
         first = temp;
     }
 }
 
-void List::push(int value) {
-    element *created = new element;
-    created->num     = value;
-    created->Next    = first;
-    first            = created;
+void List::push_back(int value)
+{
+    Node *created = new Node;
+    created->value     = value;
+    created->Next    = nullptr;
+    if (length == 0)
+    {
+        first = created;
+    }
+    last->Next = created;
+    last = created;
     length++;
 }
 
-List::element List::begin(void) {
-    return *first;
-}
+int List::at(std::size_t index)
+{
+    Node * step = first;
+    if (index >= length)
+    {
+        throw std::bad_alloc();
+    }
 
-List::element List::element::next(void) {
-    return *this->Next;
-}
-
-int List::element::value(void) {
-    return this->num;
-}
-
-List::element List::get(int index) {
-    element step = *first;
-    for(int i = 1; i <= index; i++){
-        if(i == index){
-            return step;
-        } else {
-            step = step.next();
+    for (int i = 0; i <= index; ++i)
+    {
+        if (i == index)
+        {
+            return step->value;
+        }
+        else
+        {
+            step = step->Next;
         }
     }
-};
+}
+
+size_t List::size(void)
+{
+    return length;
+}
+
+}

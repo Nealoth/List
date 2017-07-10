@@ -2,27 +2,16 @@
 #include "List.h"
 
 using namespace std;
-
-void inc(List l) {
-    List::element el = l.begin();
-    for (int i = 0; i < l.length; i++) {
-        cout << el.value() << '\n';
-        if(el.Next) el = el.next();
-    }
-}
+using namespace custom_std;
 
 int main() {
     List list;
 
-    list.push(3);
-    list.push(2);
-    list.push(1);
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
 
-//    inc(list);
-
-    list.begin().next().value();
-
-    cout << list.get(1).value();
+    cout << list.at(2) << std::endl;
 
     cin.get();
 }

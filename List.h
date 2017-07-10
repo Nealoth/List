@@ -1,32 +1,31 @@
-#ifndef LIST_LIST_H
-#define LIST_LIST_H
+#pragma once
+
+#include <cstdint>
+
+namespace custom_std
+{
 
 class List {
-
 public:
-    struct element {
-        int num;
-        element *Next;
-
-        element next();
-
-        int value();
-    };
-
-    element *first;
-
-    int length;
 
     List();
-
     ~List();
 
-    void push(int);
+    void push_back(int value);
+    int at(std::size_t index);
+    std::size_t size(void);
 
-    element begin();
+private:
+    struct Node
+    {
+        int value;
+        Node * Next;
+    };
 
-    element get(int);
+    Node * first;
+    Node * last;
+    std::size_t length;
 
 };
 
-#endif
+}
